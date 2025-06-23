@@ -30,6 +30,7 @@ export default function AccessiblePlaylists() {
   const [loading, setLoading] = useState(true);
   const [playingTrackId, setPlayingTrackId] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [bgImage, setBgImage] = useState('/iu/iu-lee-ji-eun-uhdpaper.com-4K-8.3014.jpg'); // 초기 배경
 
   const handlePlayPause = (track: Track) => {
     if (!track.previewUrl) return;
@@ -127,10 +128,13 @@ export default function AccessiblePlaylists() {
 
   return (
     <Wrapper>
+      <Background $bg={bgImage} />
       <audio ref={audioRef} hidden />
+      <SectionTitle className='mt'>🎵 플레이 리스트</SectionTitle>
       <PlaylistGrid>
         {playlists.map((playlist) => (
           <Card key={playlist.id} onClick={() => fetchTracks(playlist.id)}>
+            <TrackBackground $bg={`${playlist.image}`}/>
             <Thumbnail src={playlist.image} alt={playlist.name} />
             <Title>{playlist.name}</Title>
             <Description>{playlist.description}</Description>
@@ -142,23 +146,27 @@ export default function AccessiblePlaylists() {
       {selectedPlaylist && (
         <div>
           <SectionTitle>🎵 트랙 목록</SectionTitle>
-          <TrackGrid>
+          <Carousel>
             {tracks.map((track) => (
               <StyledTrackCard
                 key={track.id}
                 $active={playingTrackId === track.id}
+                onClick={() => setBgImage(track.image)}
               >
-                <Thumbnail src={track.image} alt={track.name} />
-                <Title>{track.name}</Title>
-                <Description>{track.artists}</Description>
-                {track.previewUrl && (
-                  <PlayButton onClick={() => handlePlayPause(track)}>
-                    {playingTrackId === track.id ? '⏸ 일시정지' : '▶ 재생'}
-                  </PlayButton>
-                )}
+                <TrackBackground $bg={`${track.image}`}/>
+                <FixedBox>
+                  <Thumbnail src={track.image} alt={track.name} />
+                  <Title>{track.name}</Title>
+                  <Description>{track.artists}</Description>
+                  {track.previewUrl && (
+                    <PlayButton onClick={() => handlePlayPause(track)}>
+                      {playingTrackId === track.id ? '⏸ 일시정지' : '▶ 재생'}
+                    </PlayButton>
+                  )}
+                </FixedBox>
               </StyledTrackCard>
             ))}
-          </TrackGrid>
+          </Carousel>
         </div>
       )}
     </Wrapper>
@@ -169,14 +177,25 @@ const Wrapper = styled.div`
   padding: 1rem;
 `;
 
+const Background = styled.div<{ $bg: string }>`
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(${(props) => props.$bg});
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px);
+  z-index: 0;
+  transition: background-image 0.5s ease-in-out;
+`;
+
 const PlaylistGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
 `;
-
-const TrackGrid = styled(PlaylistGrid)``;
 
 const Card = styled.div`
   border: 1px solid #ccc;
@@ -189,13 +208,16 @@ const Card = styled.div`
   transition: background 0.2s;
 
   &:hover {
-    background: #f7f7f7;
+    border: 1.4px solid white;
   }
 `;
 
 const StyledTrackCard = styled(Card).withConfig({
   shouldForwardProp: (prop) => prop !== '$active',
 })<{ $active: boolean }>`
+  min-width: 250px;
+  max-width: 250px;
+  flex: 0 0 auto;
   ${(props) =>
     props.$active &&
     css`
@@ -204,11 +226,29 @@ const StyledTrackCard = styled(Card).withConfig({
     `}
 `;
 
+const Carousel = styled.div`
+  display: flex;
+  overflow-x: hidden;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+
+  & > * {
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease-in-out;
+  }
+`;
+
 const Thumbnail = styled.img`
   width: 100%;
   height: 160px;
   object-fit: cover;
   border-radius: 8px;
+  border: 1.4px solid black;
 `;
 
 const Title = styled.h2`
@@ -216,25 +256,43 @@ const Title = styled.h2`
   font-weight: bold;
   margin-top: 0.75rem;
   text-align: center;
+  text-shadow:
+    -1px -1px 0 white,
+     1px -1px 0 white,
+    -1px  1px 0 white,
+     1px  1px 0 white;
 `;
 
 const Description = styled.p`
   font-size: 0.875rem;
-  color: #666;
+  color: black;
   text-align: center;
   margin-top: 0.25rem;
+  text-shadow:
+    -1px -1px 0 white,
+     1px -1px 0 white,
+    -1px  1px 0 white,
+     1px  1px 0 white;
 `;
 
 const IdText = styled.code`
   font-size: 0.75rem;
-  color: #888;
+  color: black;
   margin-top: 0.5rem;
+  text-shadow:
+    -1px -1px 0 white,
+     1px -1px 0 white,
+    -1px  1px 0 white,
+     1px  1px 0 white;
 `;
 
 const SectionTitle = styled.h3`
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  &.mt {
+    margin-top: 40vh;
+  }
 `;
 
 const PlayButton = styled.button`
@@ -252,3 +310,23 @@ const PlayButton = styled.button`
     background-color: #1ed760;
   }
 `;
+
+const FixedBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const TrackBackground = styled.div<{ $bg: string }>`
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(${(props) => props.$bg});
+  background-size: cover;
+  background-position: center;
+  filter: brightness(1) blur(6px);
+`
