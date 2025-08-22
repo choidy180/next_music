@@ -1,7 +1,6 @@
 <!-- BANNER -->
 <p align="center">
-  <img src="https://cdn.simpleicons.org/spotify/1DB954/ffffff" width="30" alt="Spotify logo" />
-  <span style="font-size:40px; font-weight:600; margin-left:6px; margin-bottom:10px;">SPOTIFY</span>
+  <img src="./public/spo-logo.png" alt="Poke-Next Banner" width="200px" />
 </p>
 
 
