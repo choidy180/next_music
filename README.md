@@ -5,9 +5,9 @@
 
 
 
-<h1 align="center">⚡ Poke-Next: 포켓몬 도감 웹앱</h1>
+<h1 align="center">⚡ Next-Music 스포티파이 플레이리스트</h1>
 <p align="center">
-  <b>Next.js + TypeScript 기반의 인터랙티브 포켓몬 도감</b>
+  <b>Next.js + TypeScript 기반의 인터렉티브 스포티파이 플레이리스트</b>
 </p>
 
 <p align="center">
