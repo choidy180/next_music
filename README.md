@@ -46,7 +46,7 @@
 ---
 
 ##  라이브 데모
--  URL: **https://poke-next-amber.vercel.app**
+-  URL: 현재 미배포
 -  Next.js + Vercel 환경에서 배포 중
 
 ---
