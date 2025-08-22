@@ -1,6 +1,6 @@
 <!-- BANNER -->
 <p align="center">
-  <img src="./public/spo-logo.png" alt="Poke-Next Banner" width="200px" />
+  <img src="./public/spo-logo.png" alt="spo-next Banner" width="200px" />
 </p>
 
 
