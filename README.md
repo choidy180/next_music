@@ -1,11 +1,5 @@
 <!-- BANNER -->
-<svg width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Spotify logo">
-  <title>Spotify</title>
-  <circle cx="32" cy="32" r="30" fill="#1DB954"/>
-  <path d="M16 26c10-6 22-6 32 0" fill="none" stroke="#000" stroke-width="4" stroke-linecap="round"/>
-  <path d="M18 34c9-5 19-5 28 0" fill="none" stroke="#000" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
-  <path d="M20 42c7-4 15-4 24 0" fill="none" stroke="#000" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
-</svg>
+<img src="https://cdn.simpleicons.org/spotify/1DB954/ffffff" width="40" alt="Spotify logo" />
 
 
 
