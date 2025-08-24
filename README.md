@@ -60,8 +60,8 @@
 ##  Install
 ```bash
 # 1) 레포지토리 복제
-git clone https://github.com/choidy180/next_music.git
-cd poke-next
+git clone https://github.com/choidy180/next_music
+cd next_music
 
 # 2) 의존성 설치
 npm install
